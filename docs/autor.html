@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Autor</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <nav>
+        <ul class="navbar">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="acerca.html">Acerca de</a></li>
+            <li><a href="descripcion.html">Descripción</a></li>
+        </ul>
+    </nav>
+
+    <header class="titulo-autor">
+        <h2>Autor del Proyecto</h2>
+    </header>
+
+    <main class="contenido-autor">
+        <div class="info-autor">
+            <div class="foto-autor">
+                <img src="foto_autor.jpg" alt="Foto del autor" />
+            </div>
+            <div class="bio-autor">
+                <p>Soy un estudiante e investigador comprometido con el medio ambiente y la sostenibilidad urbana. Este proyecto nace del interés por mejorar las condiciones de los barrios afectados por el manejo inadecuado de residuos, usando herramientas tecnológicas accesibles para mapear y monitorear estos espacios.</p>
+            </div>
+        </div>
+
+        <div class="mapa-autor">
+            <div id="map"></div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="programa.js"></script>
+</body>
+</html>

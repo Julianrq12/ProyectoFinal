@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acerca de</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+</head>
+<body>
+    <nav>
+        <ul class="navbar">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="descripcion.html">Descripción</a></li>
+            <li><a href="autor.html">Autor</a></li>
+        </ul>
+    </nav>
+
+    <header class="titulo-acerca">
+        <h2>Acerca del Proyecto</h2>
+    </header>
+
+    <main class="contenido-acerca">
+        <section class="texto-acerca">
+            <p>Este proyecto busca mapear y monitorear centros informales de recolección de basura en el barrio La Florida, Bogotá. El objetivo principal es generar una herramienta que permita visualizar estos puntos para facilitar su gestión y control por parte de la comunidad y autoridades locales.</p>
+        </section>
+        <section class="mapa-acerca">
+            <div id="map"></div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="programa.js"></script>
+</body>
+</html>
