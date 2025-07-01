@@ -2,11 +2,15 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Descripción del Proyecto</title>
+  <title>Descripción</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
-  <nav>
+
+  <nav class="navbar-container">
+    <div class="logo">
+      <img src="logo.png" alt="Logo del proyecto" />
+    </div>
     <ul class="navbar">
       <li><a href="index.html">Inicio</a></li>
       <li><a href="acerca.html">Acerca de</a></li>
@@ -15,27 +19,23 @@
       <li><a href="anadir.html">Añadir Punto</a></li>
     </ul>
     <div class="search-bar">
-      <input type="text" id="busqueda" placeholder="Buscar página..." />
+      <input type="text" id="searchInput" placeholder="Buscar página..." />
       <button onclick="buscarPagina()">Buscar</button>
     </div>
   </nav>
 
-  <header class="titulo-descripcion">
-    <img src="logo.png" alt="Logo" class="logo" />
-    <h2>Descripción del Proyecto</h2>
+  <header>
+    <h1>Descripción del Proyecto</h1>
   </header>
 
-  <main class="contenido-descripcion-normal">
-    <div class="texto-descripcion-normal">
-      <p><strong>El proyecto fue desarrollado usando HTML5, CSS3, JavaScript, Leaflet.js y OpenStreetMap.</strong></p>
-      <ul class="descripcion-lista">
-        <li><strong>index.html:</strong> Introduce el propósito general y muestra el mapa principal.</li>
-        <li><strong>acerca.html:</strong> Presenta el contexto del proyecto y su relevancia.</li>
-        <li><strong>descripcion.html:</strong> Explica las tecnologías y estructura utilizadas.</li>
-        <li><strong>autor.html:</strong> Presenta al autor y su motivación.</li>
-        <li><strong>anadir.html:</strong> Permite añadir puntos críticos sobre el mapa.</li>
-      </ul>
-    </div>
+  <main>
+    <section class="intro">
+      <p>
+        El proyecto consiste en el monitoreo de centros informales de recolección de basura en el barrio La Florida. Se identifican puntos críticos mediante herramientas SIG y se propone su integración en plataformas digitales para su posterior control y gestión eficiente.
+      </p>
+    </section>
   </main>
+
+  <script src="programa.js"></script>
 </body>
 </html>

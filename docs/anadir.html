@@ -1,78 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Añadir Punto</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilos.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta charset="UTF-8">
+  <title>Añadir Punto</title>
+  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-    <nav>
-        <ul class="navbar">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="acerca.html">Acerca de</a></li>
-            <li><a href="descripcion.html">Descripción</a></li>
-            <li><a href="autor.html">Autor</a></li>
-            <li><a href="anadir.html">Añadir Punto</a></li>
-        </ul>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Buscar página...">
-            <button onclick="buscarPagina()">Buscar</button>
-        </div>
-    </nav>
 
-    <header class="titulo-descripcion">
-        <h2>Agregar puntos críticos al mapa</h2>
-    </header>
-
-    <main class="contenido-descripcion-normal">
-        <div class="texto-descripcion-normal">
-            <p>Haz clic en el mapa para registrar puntos críticos relacionados con centros informales de recolección de basura en el barrio La Florida.</p>
-        </div>
-    </main>
-
-    <div style="padding: 20px;">
-        <div id="map" style="height: 500px; width: 100%; max-width: 1000px; margin: auto; border: 2px solid #ccc; border-radius: 10px;"></div>
+  <nav class="navbar-container">
+    <div class="logo">
+      <img src="logo.png" alt="Logo del proyecto" />
     </div>
+    <ul class="navbar">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="acerca.html">Acerca de</a></li>
+      <li><a href="descripcion.html">Descripción</a></li>
+      <li><a href="autor.html">Autor</a></li>
+      <li><a href="anadir.html">Añadir Punto</a></li>
+    </ul>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar página...">
+      <button onclick="buscarPagina()">Buscar</button>
+    </div>
+  </nav>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <header>
+    <h1>Añadir Nuevo Punto de Recolección</h1>
+  </header>
 
-    <script>
-        // Crear mapa para esta página
-        const map = L.map('map').setView([4.693154616794554, -74.11102194695583], 16);
+  <main>
+    <section class="intro">
+      <p>Haz clic en el mapa para seleccionar un punto. Se mostrará su dirección y coordenadas.</p>
+    </section>
+    <div id="map-anadir"></div>
+  </main>
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 25,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+  <script src="programa.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const map = L.map('map-anadir').setView([4.693, -74.111], 16);
 
-        map.on('click', function (e) {
-            const { lat, lng } = e.latlng;
-            L.marker([lat, lng]).addTo(map)
-                .bindPopup(`Punto añadido:<br>Lat: ${lat.toFixed(5)}<br>Lng: ${lng.toFixed(5)}`)
-                .openPopup();
-        });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
 
-        // Función local para buscar (si quieres mantener barra de búsqueda sin usar programa.js)
-        function buscarPagina() {
-            const entrada = document.getElementById('searchInput').value.trim().toLowerCase();
-            const rutas = {
-                'inicio': 'index.html',
-                'acerca': 'acerca.html',
-                'autor': 'autor.html',
-                'descripción': 'descripcion.html',
-                'descripcion': 'descripcion.html',
-                'añadir': 'anadir.html',
-                'anadir': 'anadir.html'
-            };
+      let marker;
 
-            if (rutas[entrada]) {
-                window.location.href = rutas[entrada];
-            } else {
-                alert("Página no encontrada. Intenta con: inicio, acerca, descripción, autor o añadir.");
-            }
+      map.on('click', function (e) {
+        const lat = e.latlng.lat.toFixed(6);
+        const lng = e.latlng.lng.toFixed(6);
+
+        if (marker) {
+          marker.setLatLng(e.latlng);
+        } else {
+          marker = L.marker(e.latlng).addTo(map);
         }
-    </script>
+
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`)
+          .then(res => res.json())
+          .then(data => {
+            const direccion = data.display_name || 'Dirección no encontrada';
+            marker.bindPopup(`<strong>Coordenadas:</strong><br>Lat: ${lat}<br>Lng: ${lng}<br><strong>Dirección:</strong><br>${direccion}`).openPopup();
+          })
+          .catch(() => {
+            marker.bindPopup(`<strong>Coordenadas:</strong><br>Lat: ${lat}<br>Lng: ${lng}<br><strong>Dirección:</strong> No disponible`).openPopup();
+          });
+      });
+    });
+  </script>
+
 </body>
 </html>

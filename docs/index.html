@@ -1,45 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centros de reciclaje barrio la Florida</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="estilos.css">
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centros de reciclaje barrio La Florida</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-    <nav>
-        <ul class="navbar">
-            <li><a href="acerca.html">Acerca de</a></li>
-            <li><a href="descripcion.html">Descripción</a></li>
-            <li><a href="autor.html">Autor</a></li>
-            <li><a href="anadir.html">Añadir Punto</a></li>
-        </ul>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Buscar página...">
-            <button onclick="buscarPagina()">Buscar</button>
-        </div>
-    </nav>
 
-    <header>
-        <h1>Monitoreo de centros informales de recolección de basura en el barrio la Florida localidad de Engativá, Bogotá Colombia.</h1>
-        <img src="./logo.png" alt="Logo" height="70">
-    </header>
+  <!-- NAVBAR moderna -->
+  <nav class="navbar-container">
+    <div class="logo">
+      <img src="logo.png" alt="Logo del proyecto" />
+    </div>
+    <ul class="navbar">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="acerca.html">Acerca de</a></li>
+      <li><a href="descripcion.html">Descripción</a></li>
+      <li><a href="autor.html">Autor</a></li>
+      <li><a href="anadir.html">Añadir Punto</a></li>
+    </ul>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar página..." />
+      <button onclick="buscarPagina()">Buscar</button>
+    </div>
+  </nav>
 
-    <main>
-        <div>
-            <p>En el barrio la Florida ubicado en la localidad de Engativá se ubican un gran número de centros informales de recolección de basura. Este proyecto busca mapear y monitorear centros informales de recolección de basura en el barrio La Florida, Bogotá. 
-                El objetivo es facilitar su gestión y control en la zona. De ta manera, el proyecto se basa de una serie de estudios tecnicos y metodologicos los cuales acompañados de herramientas y ayudas tecnologicas busquen encontrar y llevar a cabo una posible solución optima para todos los involucrados.
-        </section></p>
-        </div>
-    </main>
+  <!-- Encabezado principal -->
+  <header>
+    <h1>Monitoreo de centros informales de recolección de basura en el barrio La Florida, Engativá, Bogotá</h1>
+  </header>
 
-    <footer>
-        <div id="map"></div>
-    </footer>
+  <!-- Contenido principal -->
+  <main>
+    <section class="intro">
+      <p>
+        En el barrio La Florida ubicado en la localidad de Engativá se ubican un gran número de centros informales de recolección de basura. Este proyecto busca mapear y monitorear dichos centros para facilitar su gestión y control en la zona. Basado en estudios técnicos y herramientas tecnológicas, se propone una solución óptima para todos los involucrados.
+      </p>
+    </section>
+  </main>
 
-    <script src="programa.js"></script>
+  <!-- Mapa -->
+  <footer>
+    <div id="map"></div>
+  </footer>
+
+  <script src="programa.js"></script>
 </body>
 </html>
-

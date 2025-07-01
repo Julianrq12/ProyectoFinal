@@ -1,15 +1,17 @@
-// Validar si la página tiene un contenedor #map y no es "anadir.html"
+// Detectar si existe un contenedor de mapa y no estás en "anadir.html"
 const mapContainer = document.getElementById('map');
 const path = window.location.pathname;
 
 if (mapContainer && !path.includes("anadir.html")) {
     var map = L.map('map').setView([4.693154616794554, -74.11102194695583], 16);
 
+    // Cargar mapa base de OpenStreetMap
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 25,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    // Diferentes comportamientos por página
     if (path.includes("acerca.html")) {
         const polygon = L.polygon([
             [4.698233311980569, -74.1148684543079],
@@ -37,7 +39,7 @@ if (mapContainer && !path.includes("anadir.html")) {
     }
 }
 
-// Buscar página
+// Función para buscar y redirigir
 function buscarPagina() {
     const entrada = document.getElementById('searchInput').value.trim().toLowerCase();
     const rutas = {
@@ -53,6 +55,18 @@ function buscarPagina() {
     if (rutas[entrada]) {
         window.location.href = rutas[entrada];
     } else {
-        alert("Página no encontrada. Intenta con: inicio, acerca, descripción, autor o añadir.");
+        alert("Página no encontrada. Intenta con: inicio, acerca, autor, descripción o añadir.");
     }
 }
+
+// Habilitar búsqueda también con tecla Enter
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('searchInput');
+    if (input) {
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                buscarPagina();
+            }
+        });
+    }
+});

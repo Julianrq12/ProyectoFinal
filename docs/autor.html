@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Autor</title>
-    <link rel="stylesheet" href="estilos.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta charset="UTF-8" />
+  <title>Autor</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-    <nav>
-        <ul class="navbar">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="acerca.html">Acerca de</a></li>
-            <li><a href="descripcion.html">Descripción</a></li>
-            <li><a href="anadir.html">Añadir Punto</a></li>
-        </ul>
-        <div class="search-bar">
-            <input type="text" id="busqueda" placeholder="Buscar página...">
-            <button onclick="buscarPagina()">Buscar</button>
-        </div>
-    </nav>
 
-    <header class="titulo-autor">
-        <h2>Autor del Proyecto</h2>
-    </header>
+  <nav class="navbar-container">
+    <div class="logo">
+      <img src="logo.png" alt="Logo del proyecto" />
+    </div>
+    <ul class="navbar">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="acerca.html">Acerca de</a></li>
+      <li><a href="descripcion.html">Descripción</a></li>
+      <li><a href="autor.html">Autor</a></li>
+      <li><a href="anadir.html">Añadir Punto</a></li>
+    </ul>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar página..." />
+      <button onclick="buscarPagina()">Buscar</button>
+    </div>
+  </nav>
 
-    <main class="contenido-autor">
-        <div class="info-autor">
-            <div class="foto-autor">
-                <img src="./autor.png" alt="Foto del autor" />
-            </div>
-            <div class="bio-autor">
-                <p>Soy estudiante de Ingeniería Catastral y Geodesia comprometido con el medio ambiente. Este proyecto surge del interés por mejorar zonas afectadas por el mal manejo de residuos, usando tecnologías geográficas, mi objetivo radica en brindar una solución con aspectos sociales los cuales permitan brindar una solcuión optima a los involucrados.</p>
-            </div>
-        </div>
-        <div class="mapa-autor">
-            <div id="map"></div>
-        </div>
-    </main>
+  <header>
+    <h1>Autor del Proyecto</h1>
+  </header>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="programa.js"></script>
+  <main>
+    <section class="intro">
+      <p>
+        Soy estudiante de Ingeniería Catastral y Geodesia comprometido con el medio ambiente. Este proyecto surge del interés por mejorar zonas afectadas por el mal manejo de residuos, usando tecnologías geográficas. Mi objetivo es brindar una solución con enfoque social que beneficie a todos los involucrados.
+      </p>
+      <img src="autor.png" alt="Foto del autor" style="max-width: 250px; border-radius: 10px; display: block; margin: 20px auto;" />
+    </section>
+  </main>
+
+  <footer>
+    <div id="map"></div>
+  </footer>
+
+  <script src="programa.js"></script>
 </body>
 </html>
