@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Descripción</title>
-  <link rel="stylesheet" href="estilos.css" />
+  <meta charset="UTF-8">
+  <title>Descripción del Proyecto</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
@@ -17,9 +17,10 @@
       <li><a href="descripcion.html">Descripción</a></li>
       <li><a href="autor.html">Autor</a></li>
       <li><a href="anadir.html">Añadir Punto</a></li>
+      <li><a href="reporte.html">Reportes</a></li>
     </ul>
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Buscar página..." />
+      <input type="text" id="searchInput" placeholder="Buscar página...">
       <button onclick="buscarPagina()">Buscar</button>
     </div>
   </nav>
@@ -31,11 +32,63 @@
   <main>
     <section class="intro">
       <p>
-        El proyecto consiste en el monitoreo de centros informales de recolección de basura en el barrio La Florida. Se identifican puntos críticos mediante herramientas SIG y se propone su integración en plataformas digitales para su posterior control y gestión eficiente.
+        Este proyecto fue desarrollado con el objetivo de monitorear y registrar centros informales de recolección de residuos en el barrio La Florida, Bogotá. Se utilizó una combinación de tecnologías como <strong>HTML</strong>, <strong>CSS</strong>, <strong>JavaScript</strong> y <strong>Leaflet.js</strong> para el diseño del sitio web interactivo, y <strong>Flask + PostgreSQL</strong> para la gestión del backend y la base de datos.
+      </p>
+      <p>
+        A continuación, se presenta la estructura general del sistema:
+      </p>
+
+      <div class="tabla-reporte">
+        <table>
+          <thead>
+            <tr>
+              <th>Componente</th>
+              <th>Descripción</th>
+              <th>Ubicación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>HTML</td>
+              <td>Define la estructura de las páginas: inicio, añadir, reporte, autor, etc.</td>
+              <td>`index.html`, `anadir.html`, `reporte.html`, etc.</td>
+            </tr>
+            <tr>
+              <td>CSS</td>
+              <td>Controla el diseño visual en rojo y negro, distribución y estilos de los elementos.</td>
+              <td>`estilos.css`</td>
+            </tr>
+            <tr>
+              <td>JavaScript</td>
+              <td>Gestión del mapa Leaflet y la barra de búsqueda.</td>
+              <td>`programa.js`</td>
+            </tr>
+            <tr>
+              <td>Leaflet.js</td>
+              <td>Visualización de mapas interactivos para selección de puntos.</td>
+              <td>CDN en los HTML</td>
+            </tr>
+            <tr>
+              <td>Flask (Python)</td>
+              <td>Servidor backend para procesar formularios y mostrar reportes.</td>
+              <td>`recoleccion.py`</td>
+            </tr>
+            <tr>
+              <td>PostgreSQL</td>
+              <td>Base de datos que almacena los reportes enviados por usuarios.</td>
+              <td>BD `recoleccion`, tabla `reportes`</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        El flujo general del sistema permite que un usuario seleccione un punto en el mapa, complete un formulario con información del sitio reportado, y que esta información se almacene automáticamente en una base de datos. Luego, los datos pueden ser consultados desde la pestaña <strong>Reportes</strong>, que muestra una tabla actualizada de los registros.
       </p>
     </section>
   </main>
 
   <script src="programa.js"></script>
+
 </body>
 </html>
