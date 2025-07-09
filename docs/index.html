@@ -1,52 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Centros de reciclaje barrio La Florida</title>
-  <link rel="stylesheet" href="estilos.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centros de reciclaje barrio la Florida</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
-  <!-- NAVBAR moderna -->
-  <nav class="navbar-container">
-    <div class="logo">
-      <img src="logo.png" alt="Logo del proyecto" />
-    </div>
-    <ul class="navbar">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="acerca.html">Acerca de</a></li>
-      <li><a href="descripcion.html">Descripción</a></li>
-      <li><a href="autor.html">Autor</a></li>
-      <li><a href="anadir.html">Añadir Punto</a></li>
-    </ul>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Buscar página..." />
-      <button onclick="buscarPagina()">Buscar</button>
-    </div>
-  </nav>
+    <!-- NAVBAR -->
+    <nav class="navbar-container">
+        <div class="logo">
+            <img src="logo.png" alt="Logo del proyecto">
+        </div>
+        <ul class="navbar">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="acerca.html">Acerca de</a></li>
+            <li><a href="descripcion.html">Descripción</a></li>
+            <li><a href="autor.html">Autor</a></li>
+            <li><a href="anadir.html">Añadir Punto</a></li>
+        </ul>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar página...">
+            <button onclick="buscarPagina()">Buscar</button>
+        </div>
+    </nav>
 
-  <!-- Encabezado principal -->
-  <header>
-    <h1>Monitoreo de centros informales de recolección de basura en el barrio La Florida, Engativá, Bogotá</h1>
-  </header>
+    <!-- HEADER -->
+    <header>
+        <h1>Monitoreo de centros informales de recolección de basura en el barrio la Florida, Engativá - Bogotá</h1>
+    </header>
 
-  <!-- Contenido principal -->
-  <main>
-    <section class="intro">
-      <p>
-        En el barrio La Florida ubicado en la localidad de Engativá se ubican un gran número de centros informales de recolección de basura. Este proyecto busca mapear y monitorear dichos centros para facilitar su gestión y control en la zona. Basado en estudios técnicos y herramientas tecnológicas, se propone una solución óptima para todos los involucrados.
-      </p>
-    </section>
-  </main>
+    <!-- MAIN -->
+    <main>
+        <section>
+            <p>Este proyecto busca mapear y monitorear centros informales de recolección de basura en el barrio La Florida, Bogotá. 
+            El objetivo es facilitar su gestión y control en la zona.</p>
+        </section>
 
-  <!-- Mapa -->
-  <footer>
-    <div id="map"></div>
-  </footer>
+        <!-- Tabla de reportes -->
+        <section>
+            <h2>Reportes Registrados</h2>
+            <table class="tabla-reportes">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Contacto</th>
+                        <th>Dirección</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaReportes">
+                    <!-- Aquí se cargan los datos -->
+                </tbody>
+            </table>
+        </section>
 
-  <script src="programa.js"></script>
+        <!-- Mapa -->
+        <div id="map"></div>
+    </main>
+
+    <!-- SCRIPT -->
+    <script src="programa.js"></script>
+    <script>
+        // Buscar páginas
+        function buscarPagina() {
+            const entrada = document.getElementById('searchInput').value.toLowerCase().trim();
+            const rutas = {
+                "inicio": "index.html",
+                "acerca": "acerca.html",
+                "descripcion": "descripcion.html",
+                "autor": "autor.html",
+                "anadir": "anadir.html",
+                "añadir": "anadir.html"
+            };
+            if (rutas[entrada]) {
+                window.location.href = rutas[entrada];
+            } else {
+                alert("Página no encontrada");
+            }
+        }
+
+        // Cargar reportes desde API
+        async function cargarReportes() {
+            try {
+                const respuesta = await fetch('http://localhost:5000/api/reportes');
+                const datos = await respuesta.json();
+
+                const cuerpo = document.getElementById('tablaReportes');
+                cuerpo.innerHTML = "";
+
+                datos.forEach(rep => {
+                    const fila = `
+                        <tr>
+                            <td>${rep.id}</td>
+                            <td>${rep.nombre}</td>
+                            <td>${rep.contacto}</td>
+                            <td>${rep.direccion}</td>
+                            <td>${rep.tipo}</td>
+                            <td>${rep.descripcion}</td>
+                        </tr>
+                    `;
+                    cuerpo.innerHTML += fila;
+                });
+            } catch (error) {
+                console.error("Error al cargar reportes:", error);
+            }
+        }
+
+        window.onload = cargarReportes;
+    </script>
+
 </body>
 </html>
