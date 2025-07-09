@@ -9,135 +9,86 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav class="navbar-container">
-    <div class="logo">
-      <img src="logo.png" alt="Logo del proyecto" />
-    </div>
+    <div class="logo"><img src="logo.png" alt="Logo" /></div>
     <ul class="navbar">
       <li><a href="index.html">Inicio</a></li>
       <li><a href="acerca.html">Acerca de</a></li>
       <li><a href="descripcion.html">Descripción</a></li>
       <li><a href="autor.html">Autor</a></li>
-      <li><a href="anadir.html">Añadir Punto</a></li>
+      <li><a href="anadir.html" class="active">Añadir Punto</a></li>
+      <li><a href="reporte.html">Reportes</a></li>
     </ul>
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Buscar página...">
+      <input id="searchInput" placeholder="Buscar página...">
       <button onclick="buscarPagina()">Buscar</button>
     </div>
   </nav>
 
-  <!-- HEADER -->
-  <header>
-    <h1>Añadir Nuevo Punto de Recolección</h1>
-  </header>
+  <header><h1>Añadir Nuevo Punto de Recolección</h1></header>
 
-  <!-- MAIN -->
   <main>
-    <section class="intro">
-      <p>Haz clic en el mapa para seleccionar un punto. Se mostrará su dirección y coordenadas automáticamente.</p>
-    </section>
-
-    <!-- Mapa -->
     <div id="map-anadir"></div>
 
-    <!-- Formulario -->
-    <form id="formularioReporte">
-      <h2>Registre su queja o solicitud</h2>
-
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre" required>
-
-      <label for="contacto">Número de contacto:</label>
-      <input type="text" id="contacto" name="contacto" required>
-
-      <label for="direccion">Dirección del lugar:</label>
-      <input type="text" id="direccion" name="direccion" required readonly>
-
-      <label for="tipo">Tipo de reporte:</label>
-      <select id="tipo" name="tipo" required>
-        <option value="">Seleccione una opción</option>
-        <option value="Acumulación de basuras">Acumulación de basuras</option>
-        <option value="Centros de recolección">Centros de recolección</option>
-        <option value="Asentamiento de recicladores">Asentamiento de recicladores</option>
+    <form id="formulario-reporte">
+      <label>Nombre:</label><input id="nombre" required>
+      <label>Contacto:</label><input id="contacto" required>
+      <label>Dirección:</label><input id="direccion" readonly required>
+      <label>Tipo:</label>
+      <select id="tipo" required>
+        <option value="">Seleccione...</option>
+        <option>Acumulación de basuras</option>
+        <option>Centro de recolección</option>
+        <option>Asentamiento de recicladores</option>
       </select>
+      <label>Descripción:</label><textarea id="descripcion" required></textarea>
 
-      <label for="descripcion">Descripción:</label>
-      <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
-
-      <button type="submit">Enviar reporte</button>
+      <button type="submit">Enviar</button>
     </form>
   </main>
 
-  <!-- SCRIPTS -->
-  <script src="programa.js"></script>
   <script>
-    let latSeleccionada = null;
-    let lngSeleccionada = null;
+    function buscarPagina() {
+      const r = {'inicio':'index.html', 'acerca':'acerca.html', 'descripcion':'descripcion.html',
+                'autor':'autor.html','añadir':'anadir.html','reportes':'reporte.html'};
+      const e = document.getElementById('searchInput').value.toLowerCase().trim();
+      if (r[e]) window.location = r[e];
+      else alert("Página no encontrada.");
+    }
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const map = L.map('map-anadir').setView([4.693, -74.111], 16);
+    let marker=null;
+    const map = L.map('map-anadir').setView([4.693, -74.111],16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
+    map.on('click', e=>{
+      const lat=e.latlng.lat.toFixed(6), lng=e.latlng.lng.toFixed(6);
+      if(marker) marker.setLatLng(e.latlng);
+      else marker = L.marker(e.latlng).addTo(map);
 
-      let marker;
-
-      map.on('click', function (e) {
-        latSeleccionada = e.latlng.lat.toFixed(6);
-        lngSeleccionada = e.latlng.lng.toFixed(6);
-
-        if (marker) {
-          marker.setLatLng(e.latlng);
-        } else {
-          marker = L.marker(e.latlng).addTo(map);
-        }
-
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latSeleccionada}&lon=${lngSeleccionada}`)
-          .then(res => res.json())
-          .then(data => {
-            const direccion = data.display_name || 'Dirección no disponible';
-            document.getElementById('direccion').value = direccion;
-            marker.bindPopup(direccion).openPopup();
-          })
-          .catch(() => {
-            document.getElementById('direccion').value = "Dirección no disponible";
-          });
-      });
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+        .then(r=>r.json()).then(d=>{
+          const dir = d.display_name|| 'No disponible';
+          document.getElementById('direccion').value = dir;
+          marker.bindPopup(dir).openPopup();
+        });
     });
 
-    // Enviar formulario a Flask
-    document.getElementById("formularioReporte").addEventListener("submit", function (e) {
+    document.getElementById('formulario-reporte').addEventListener('submit', e=>{
       e.preventDefault();
-
-      const datos = {
-        nombre: document.getElementById("nombre").value,
-        contacto: document.getElementById("contacto").value,
-        direccion: document.getElementById("direccion").value,
-        tipo: document.getElementById("tipo").value,
-        descripcion: document.getElementById("descripcion").value
+      const datos={
+        nombre: document.getElementById('nombre').value,
+        contacto: document.getElementById('contacto').value,
+        direccion: document.getElementById('direccion').value,
+        tipo: document.getElementById('tipo').value,
+        descripcion: document.getElementById('descripcion').value
       };
-
-      fetch("http://localhost:5000/api/guardar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(datos)
+      fetch('http://127.0.0.1:5000/guardar',{
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(datos)
       })
-        .then(res => {
-          if (res.ok) {
-            alert("Reporte enviado con éxito.");
-            document.getElementById("formularioReporte").reset();
-          } else {
-            alert("Error al enviar el reporte.");
-          }
-        })
-        .catch(() => {
-          alert("No se pudo conectar con el servidor.");
-        });
+      .then(res=>{
+        if(res.ok) window.location='reporte.html';
+        else alert('Error al guardar');
+      }).catch(_=>alert('Error de conexión'));
     });
   </script>
 

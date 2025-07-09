@@ -1,41 +1,31 @@
-/* GENERAL */
+/* ESTILO GENERAL */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     background-color: #111;
-    color: white;
+    color: #fff;
 }
 
-header, main, footer {
-    padding: 20px;
-    text-align: center;
-}
-
-h1, h2, p {
-    margin: 10px 0;
-}
-
-/* NAVBAR SUPERIOR */
-nav {
+/* NAVBAR */
+.navbar-container {
     background-color: #b30000;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
-    flex-wrap: wrap;
 }
 
 .logo img {
-    height: 40px;
+    height: 50px;
 }
 
-/* MENÚ CENTRADO */
 .navbar {
-    display: flex;
     list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
     padding: 0;
-    margin: 0 auto;
-    gap: 20px;
+    justify-content: center;
 }
 
 .navbar li a {
@@ -44,69 +34,59 @@ nav {
     font-weight: bold;
     padding: 10px 15px;
     border-radius: 5px;
-    transition: background-color 0.3s;
 }
 
 .navbar li a:hover {
     background-color: #ff0000;
 }
 
-/* BUSCADOR */
+/* BARRA DE BÚSQUEDA */
 .search-bar {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
 }
 
-.search-bar input {
-    padding: 6px;
-    border-radius: 4px;
+#searchInput {
+    padding: 5px 10px;
+    border-radius: 5px;
     border: none;
 }
 
-.search-bar button {
-    padding: 6px 10px;
-    background-color: white;
-    color: #b30000;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
+/* ENCABEZADO */
+header {
+    padding: 20px;
+    text-align: center;
+    background-color: #1a1a1a;
 }
 
-.search-bar button:hover {
-    background-color: #ff0000;
-    color: white;
+header h1 {
+    margin: 0;
+    font-size: 24px;
 }
 
-/* MAPAS */
-#map,
-#map-anadir {
+/* MAPA LEAFLET */
+#map, #map-anadir {
     height: 400px;
-    max-width: 95%;
+    width: 90%;
     margin: 20px auto;
-    border-radius: 10px;
     border: 2px solid #444;
+    border-radius: 10px;
 }
 
-/* FORMULARIOS */
+/* FORMULARIO */
 form {
     background-color: #222;
     padding: 20px;
     border-radius: 10px;
-    width: 100%;
+    width: 90%;
     max-width: 600px;
-    margin: 40px auto;
-}
-
-form h2 {
-    text-align: center;
-    color: white;
+    margin: 20px auto;
 }
 
 form label {
     display: block;
-    margin-top: 15px;
+    margin-top: 10px;
     font-weight: bold;
 }
 
@@ -114,75 +94,54 @@ form input,
 form select,
 form textarea {
     width: 100%;
-    padding: 10px;
+    padding: 8px;
     margin-top: 5px;
     border-radius: 5px;
     border: none;
     background-color: #333;
-    color: white;
-}
-
-form textarea {
-    resize: vertical;
-    min-height: 100px;
+    color: #fff;
 }
 
 form button {
-    margin-top: 20px;
-    padding: 12px;
+    margin-top: 15px;
+    padding: 10px;
     width: 100%;
     background-color: #b30000;
     color: white;
     font-weight: bold;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 form button:hover {
     background-color: #ff0000;
 }
 
-/* TEXTOS DE PÁGINAS */
-.intro p {
-    font-size: 1.1em;
-    max-width: 800px;
-    margin: auto;
+/* TABLA DE REPORTE */
+.tabla-reporte {
+    width: 95%;
+    margin: 40px auto;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #222;
+    color: white;
+}
+
+table thead {
+    background-color: #b30000;
+}
+
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #555;
     text-align: center;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .search-bar {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .search-bar input {
-        width: 70%;
-    }
-
-    .search-bar button {
-        width: 25%;
-    }
-
-    form {
-        padding: 15px;
-    }
-}
-
-/* AJUSTE EXCLUSIVO PARA MAPA DE AÑADIR */
-#map-anadir {
-    height: 300px;
+table tr:nth-child(even) {
+    background-color: #1c1c1c;
 }

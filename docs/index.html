@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centros de reciclaje barrio la Florida</title>
-    <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="estilos.css">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
-    <!-- NAVBAR -->
     <nav class="navbar-container">
         <div class="logo">
-            <img src="logo.png" alt="Logo del proyecto">
+            <img src="logo.png" alt="Logo del proyecto" />
         </div>
         <ul class="navbar">
             <li><a href="index.html">Inicio</a></li>
@@ -21,6 +20,7 @@
             <li><a href="descripcion.html">Descripción</a></li>
             <li><a href="autor.html">Autor</a></li>
             <li><a href="anadir.html">Añadir Punto</a></li>
+            <li><a href="reporte.html">Ver Reportes</a></li>
         </ul>
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Buscar página...">
@@ -28,92 +28,20 @@
         </div>
     </nav>
 
-    <!-- HEADER -->
     <header>
-        <h1>Monitoreo de centros informales de recolección de basura en el barrio la Florida, Engativá - Bogotá</h1>
+        <h1>Monitoreo de centros informales de recolección de basura en el barrio La Florida, Engativá, Bogotá</h1>
     </header>
 
-    <!-- MAIN -->
     <main>
-        <section>
-            <p>Este proyecto busca mapear y monitorear centros informales de recolección de basura en el barrio La Florida, Bogotá. 
-            El objetivo es facilitar su gestión y control en la zona.</p>
+        <section class="intro">
+            <p>
+                En el barrio La Florida, ubicado en la localidad de Engativá, se identifican diversos centros informales de recolección de basura.
+                Este proyecto busca mapear y monitorear estos puntos con el fin de facilitar su gestión y control, a través de estudios técnicos y herramientas tecnológicas que permitan construir soluciones efectivas para la comunidad.
+            </p>
         </section>
-
-        <!-- Tabla de reportes -->
-        <section>
-            <h2>Reportes Registrados</h2>
-            <table class="tabla-reportes">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Contacto</th>
-                        <th>Dirección</th>
-                        <th>Tipo</th>
-                        <th>Descripción</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaReportes">
-                    <!-- Aquí se cargan los datos -->
-                </tbody>
-            </table>
-        </section>
-
-        <!-- Mapa -->
         <div id="map"></div>
     </main>
 
-    <!-- SCRIPT -->
     <script src="programa.js"></script>
-    <script>
-        // Buscar páginas
-        function buscarPagina() {
-            const entrada = document.getElementById('searchInput').value.toLowerCase().trim();
-            const rutas = {
-                "inicio": "index.html",
-                "acerca": "acerca.html",
-                "descripcion": "descripcion.html",
-                "autor": "autor.html",
-                "anadir": "anadir.html",
-                "añadir": "anadir.html"
-            };
-            if (rutas[entrada]) {
-                window.location.href = rutas[entrada];
-            } else {
-                alert("Página no encontrada");
-            }
-        }
-
-        // Cargar reportes desde API
-        async function cargarReportes() {
-            try {
-                const respuesta = await fetch('http://localhost:5000/api/reportes');
-                const datos = await respuesta.json();
-
-                const cuerpo = document.getElementById('tablaReportes');
-                cuerpo.innerHTML = "";
-
-                datos.forEach(rep => {
-                    const fila = `
-                        <tr>
-                            <td>${rep.id}</td>
-                            <td>${rep.nombre}</td>
-                            <td>${rep.contacto}</td>
-                            <td>${rep.direccion}</td>
-                            <td>${rep.tipo}</td>
-                            <td>${rep.descripcion}</td>
-                        </tr>
-                    `;
-                    cuerpo.innerHTML += fila;
-                });
-            } catch (error) {
-                console.error("Error al cargar reportes:", error);
-            }
-        }
-
-        window.onload = cargarReportes;
-    </script>
-
 </body>
 </html>

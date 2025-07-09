@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reportes</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <nav class="navbar-container">
+    <div class="logo"><img src="logo.png" alt="Logo" /></div>
+    <ul class="navbar">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="acerca.html">Acerca de</a></li>
+      <li><a href="descripcion.html">Descripción</a></li>
+      <li><a href="autor.html">Autor</a></li>
+      <li><a href="anadir.html">Añadir Punto</a></li>
+      <li><a href="reporte.html" class="active">Reportes</a></li>
+    </ul>
+    <div class="search-bar">
+      <input id="searchInput" placeholder="Buscar página...">
+      <button onclick="buscarPagina()">Buscar</button>
+    </div>
+  </nav>
+
+  <header><h1>Reportes Registrados</h1></header>
+
+  <main>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Nombre</th><th>Contacto</th><th>Dirección</th>
+            <th>Tipo</th><th>Descripción</th></tr>
+      </thead>
+      <tbody id="tabla">
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    function buscarPagina(){
+      const r={'inicio':'index.html','anadir':'anadir.html','reportes':'reporte.html'};
+      const e=document.getElementById('searchInput').value.toLowerCase().trim();
+      if(r[e]) window.location=r[e];
+      else alert("Página no encontrada.");
+    }
+    fetch('http://127.0.0.1:5000/datos')
+      .then(r=>r.json())
+      .then(data=>{
+        const t=document.getElementById('tabla');
+        data.forEach(i=>{
+          t.innerHTML += `<tr>
+            <td>${i.id}</td><td>${i.nombre}</td><td>${i.contacto}</td>
+            <td>${i.direccion}</td><td>${i.tipo_reporte}</td><td>${i.descripcion}</td>
+          </tr>`;
+        });
+      })
+      .catch(_=>alert('Error al cargar reportes'));
+  </script>
+
+</body>
+</html>
